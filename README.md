@@ -19,8 +19,8 @@ This project analyzes student performance data to predict which students are "at
 
 1. Clone this repository:
 ```bash
-git clone https://github.com/yourusername/student-performance-dashboard.git
-cd student-performance-dashboard
+git clone https://github.com/Mariee5/StudentPerformanceAnalysis.git
+cd StudentPerformanceAnalysis
 ```
 
 2. Install required packages:
