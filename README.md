@@ -32,7 +32,7 @@ cd CourseraDataAnalysisDashboard
 
 2. Install required packages:
 ```bash
-pip install -r coursera_requirements.txt
+pip install -r requirements.txt
 ```
 
 3. Run the dashboard:
@@ -45,8 +45,8 @@ streamlit run coursera_dashboard.py
 - `coursera_dashboard.py` - Main Streamlit application
 - `cleaned_coursera_data.csv` - Processed Coursera course dataset
 - `Coursera.csv` - Original raw dataset (fallback)
-- `coursera_requirements.txt` - Python dependencies
-- `Team_04_Lab9&10_The_Insight_Quest.ipynb` - Original analysis notebook
+- `requirements.txt` - Python dependencies
+- `Team_04_Lab9&10_The_Insight_Quest (1).ipynb` - Original analysis notebook
 
 ## 📊 Dataset
 
