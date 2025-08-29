@@ -99,7 +99,8 @@ def load_data():
     try:
         # Try cleaned data first
         if os.path.exists("cleaned_coursera_data.csv"):
-            return pd.read_csv("cleaned_coursera_data.csv")
+            df = pd.read_csv("cleaned_coursera_data.csv")
+            return df
         # Fallback to original data
         elif os.path.exists("Coursera.csv"):
             df = pd.read_csv("Coursera.csv")
@@ -112,16 +113,34 @@ def load_data():
                 df['reviewcount'] = pd.to_numeric(df['reviewcount'], errors='coerce')
             return df
         else:
-            st.error("No data file found! Please ensure Coursera.csv or cleaned_coursera_data.csv is in the directory.")
-            return None
+            # Create sample data if no files exist (for demo purposes)
+            st.warning("No data file found. Using sample data for demonstration.")
+            return create_sample_data()
     except Exception as e:
         st.error(f"Error loading data: {str(e)}")
-        return None
+        st.info("Using sample data for demonstration.")
+        return create_sample_data()
+
+def create_sample_data():
+    """Create sample data for demonstration"""
+    np.random.seed(42)
+    sample_data = {
+        'course': [f'Course {i}' for i in range(100)],
+        'partner': np.random.choice(['Google', 'IBM', 'University', 'Microsoft'], 100),
+        'level': np.random.choice(['Beginner', 'Intermediate', 'Advanced'], 100),
+        'rating': np.random.uniform(3.0, 5.0, 100),
+        'reviewcount': np.random.randint(10, 5000, 100),
+        'partner_category': np.random.choice(['Big Tech', 'University', 'Other'], 100)
+    }
+    df = pd.DataFrame(sample_data)
+    df['popularity_score'] = (df['rating'] / 5.0) * 0.7 + (df['reviewcount'] / df['reviewcount'].max()) * 0.3
+    return df
 
 # Load data
 df = load_data()
 
-if df is not None:
+# Always proceed with the app, even if using sample data
+if df is not None and len(df) > 0:
     # Header with gradient background
     st.markdown("""
     <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
@@ -396,4 +415,5 @@ if df is not None:
     """, unsafe_allow_html=True)
 
 else:
-    st.error("Unable to load data. Please check if the data file exists in the directory.")
+    st.error("Unable to load any data. Please check the deployment configuration.")
+    st.stop()
